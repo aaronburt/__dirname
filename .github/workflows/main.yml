@@ -19,6 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
+          registry-url: 'https://registry.npmjs.org'
           node-version: '22.x'
           cache: 'npm'
 
@@ -32,26 +33,3 @@ jobs:
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Create Zip Archive
-        run: zip -r release.zip dist package.json package-lock.json
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: release
-          path: release.zip
-
-      - name: Generate release tag
-        id: tag
-        run: echo "release_tag=release-$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_OUTPUT
-
-      - name: Create GitHub Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create ${{ steps.tag.outputs.release_tag }} \
-          --repo "$GITHUB_REPOSITORY" \
-          --title "${{ steps.tag.outputs.release_tag }}" \
-          --generate-notes \
-          release.zip
