@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: '24.x'
           cache: 'npm'
 
       - name: Install dependencies
@@ -27,6 +27,11 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create Zip Archive
         run: zip -r release.zip dist package.json package-lock.json
@@ -50,4 +55,3 @@ jobs:
           --title "${{ steps.tag.outputs.release_tag }}" \
           --generate-notes \
           release.zip
-          
