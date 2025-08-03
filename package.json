@@ -1,0 +1,23 @@
+{
+  "name": "dirname",
+  "version": "1.0.0",
+  "main": "./dist/main.js",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/main.ts --bundle --platform=node --target=node24 --format=esm --outfile=dist/main.js --minify",
+    "production": "node ./dist/main.js",
+    "dev": " tsx --watch ./src/main.ts"
+  },
+  "keywords": [],
+  "author": "aaronburt",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "esbuild": "^0.25.6",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+  },
+  "description": "__dirname & __filename"
+}
