@@ -1,4 +1,4 @@
-name: Node.js CI Build and Zip
+name: Node.js CI Build, Zip, and Release
 
 on:
   push:
@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -33,3 +35,17 @@ jobs:
         with:
           name: release
           path: release.zip
+
+      - name: Generate release tag
+        id: tag
+        run: echo "release_tag=release-$(date +'%Y-%m-%d-%H-%M-%S')" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create ${{ steps.tag.outputs.release_tag }} \
+          --repo "$GITHUB_REPOSITORY" \
+          --title "${{ steps.tag.outputs.release_tag }}" \
+          --generate-notes \
+          release.zip
