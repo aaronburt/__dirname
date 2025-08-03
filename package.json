@@ -1,6 +1,6 @@
 {
-  "name": "dirname",
-  "version": "1.0.0",
+  "name": "@aaronburt/dirname",
+  "version": "0.2.0",
   "main": "./dist/main.js",
   "type": "module",
   "scripts": {
