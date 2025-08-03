@@ -4,7 +4,7 @@
   "main": "./dist/main.js",
   "type": "module",
   "scripts": {
-    "build": "esbuild src/main.ts --bundle --platform=node --target=node24 --format=esm --outfile=dist/main.js --minify",
+    "build": "esbuild src/main.ts --bundle --platform=node --target=node24 --format=esm --outfile=./dist/main.js --minify",
     "production": "node ./dist/main.js",
     "dev": " tsx --watch ./src/main.ts"
   },
