@@ -50,6 +50,4 @@ jobs:
           --title "${{ steps.tag.outputs.release_tag }}" \
           --generate-notes \
           release.zip
-
-      - name: Publish package
-        run: npx jsr publish
+          
